@@ -391,11 +391,7 @@ function buildCards() {
         <div class="card-name">${f.name}</div>
         <div class="card-title">${f.title}</div>
         <div class="roast-box">"${f.caption}"</div>
-        <div class="meter-wrap">
-          <span class="meter-label">🔥 ROAST LEVEL</span>
-          <div class="meter-bar"><div class="meter-fill" id="meter-${i}"></div></div>
-          <span class="meter-label" style="color:${f.color}">${roastLevels[i]}%</span>
-        </div>
+        
       </div>`;
     card.addEventListener('click', (e) => spawnBoom(e, i));
     grid.appendChild(card);
