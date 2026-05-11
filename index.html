@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔥 The Gang's Roast Page 🔥</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #0f0f0f;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  
+  /* ANIMATED BG */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 20% 50%, rgba(255,107,157,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(108,92,231,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, rgba(253,114,114,0.1) 0%, transparent 50%);
+    z-index: 0;
+    pointer-events: none;
+  }
+  
+  /* HEADER */
+  .header {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 50px 20px 30px;
+    background: linear-gradient(180deg, #1a0a2e 0%, transparent 100%);
+  }
+  .header-top {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    letter-spacing: 4px;
+    background: linear-gradient(135deg, #ff6b9d, #ffd93d, #6c5ce7, #fd7272);
+    background-size: 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s infinite alternate;
+    line-height: 1.1;
+    text-shadow: none;
+    filter: drop-shadow(0 0 20px rgba(255,107,157,0.5));
+  }
+  @keyframes gradientShift {
+    0% { background-position: 0%; }
+    100% { background-position: 100%; }
+  }
+  .header-sub {
+    margin-top: 12px;
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    color: #aaa;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+  .header-warning {
+    display: inline-block;
+    margin-top: 16px;
+    background: linear-gradient(135deg, #ff6b9d, #fd7272);
+    color: white;
+    padding: 8px 24px;
+    border-radius: 30px;
+    font-size: .9rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,107,157,0.4); }
+    50% { transform: scale(1.04); box-shadow: 0 0 0 10px rgba(255,107,157,0); }
+  }
+  
+  /* FLOATING EMOJIS */
+  .floaters {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .floater {
+    position: absolute;
+    font-size: 2rem;
+    animation: floatUp linear infinite;
+    opacity: 0.15;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.15; }
+    90% { opacity: 0.15; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+  }
+  
+  /* GRID */
+  .grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    padding: 40px 5vw 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* CARD */
+  .card {
+    background: #1a1a2e;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.08);
+    transition: all 0.35s cubic-bezier(.4,0,.2,1);
+    position: relative;
+    cursor: pointer;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--c1), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 0;
+  }
+  .card:hover {
+    transform: translateY(-10px) rotate(-1deg);
+    border-color: var(--c1);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px var(--glow);
+  }
+  .card:hover::before { opacity: 0.08; }
+  
+  /* BADGE */
+  .badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--c1);
+    color: white;
+    font-size: .7rem;
+    font-weight: 900;
+    padding: 5px 12px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    z-index: 2;
+    animation: wiggle 2s infinite;
+  }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+  }
+  
+  /* PHOTO */
+  .photo-wrap {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+    background: #111;
+  }
+  .photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    transition: transform 0.5s;
+    filter: grayscale(20%);
+  }
+  .card:hover .photo-wrap img {
+    transform: scale(1.08);
+    filter: grayscale(0%);
+  }
+  .emoji-overlay {
+    position: absolute;
+    bottom: 10px;
+    left: 12px;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    z-index: 2;
+  }
+  
+  /* CARD BODY */
+  .card-body {
+    padding: 22px;
+    position: relative;
+    z-index: 1;
+  }
+  .card-name {
+    font-family: 'Bangers', cursive;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    color: var(--c1);
+    line-height: 1;
+    margin-bottom: 4px;
+    filter: drop-shadow(0 0 8px var(--glow));
+  }
+  .card-title {
+    font-size: .85rem;
+    font-weight: 900;
+    color: #888;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .roast-box {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-left: 3px solid var(--c1);
+    border-radius: 12px;
+    padding: 14px 16px;
+    color: #ddd;
+    font-size: .92rem;
+    line-height: 1.6;
+    font-weight: 700;
+    transition: background 0.3s;
+  }
+  .card:hover .roast-box {
+    background: rgba(255,255,255,0.07);
+  }
+  
+  /* ROAST METER */
+  .meter-wrap {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .meter-label {
+    font-size: .75rem;
+    color: #666;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+  .meter-bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .meter-fill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--c1), #ffd93d);
+    width: 0%;
+    transition: width 1.5s cubic-bezier(.4,0,.2,1);
+  }
+  
+  /* FOOTER */
+  .footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 30px;
+    color: #444;
+    font-size: .85rem;
+    font-weight: 700;
+  }
+  .footer span { color: #ff6b9d; }
+  
+  /* CLICK EFFECT */
+  .boom {
+    position: fixed;
+    pointer-events: none;
+    font-size: 2rem;
+    animation: boomAnim 0.8s forwards;
+    z-index: 9999;
+  }
+  @keyframes boomAnim {
+    0% { transform: scale(0) rotate(0deg); opacity: 1; }
+    100% { transform: scale(3) rotate(180deg); opacity: 0; }
+  }
+  
+  /* TITLE BADGE */
+  .crown {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: #ffd93d;
+    text-align: center;
+    margin: 0 5vw 10px;
+    letter-spacing: 3px;
+    position: relative;
+    z-index: 1;
+  }
+  @media(max-width: 600px) {
+    .grid { grid-template-columns: 1fr; padding: 20px; gap: 20px; }
+    .photo-wrap { height: 280px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="floaters" id="floaters"></div>
+
+<div class="header">
+  <div class="header-top">🔥 THE GANG 🔥<br>ROAST WALL</div>
+  <div class="header-sub">⚠️ No feelings were spared in this website ⚠️</div>
+  <div class="header-warning">💀 ENTER AT YOUR OWN RISK 💀</div>
+</div>
+<div class="crown">~ YE LOG MERE DOST HAIN, BHAGWAN MAAF KARE ~ 🙏😭</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="footer">
+  Made with <span>💔 zero sympathy</span> by a savage friend &nbsp;|&nbsp;
+  <span>Dono taraf se sorry nahi</span> 😂
+</div>
+
+<script>
+const friends = [
+    {
+        name: "Saket",
+        title: "💔 One-Sided Lover Boy",
+        caption: "Bhai ne propose kiya... khud ko. Still waiting for reply. 😭",
+        badge: "🚨 HEARTBREAK INCOMING",
+        color: "#ff6b9d",
+        emoji: "💔😭🥀",
+        img: "saket.jpg" 
+    },
+    {
+        name: "Shivang",
+        title: "😎 Aura Farmer (Non-Chalant)",
+        caption: "Duniya jal rahi hai, isko koi fark nahi. Aura +100, brain -50. 💀",
+        badge: "🌾 AURA KI KHETI",
+        color: "#6c5ce7",
+        emoji: "😎🧘‍♂️✨",
+        img: "shivang.jpg"
+    },
+    {
+        name: "Aaditya",
+        title: "🎬 Content Creator Guy",
+        caption: "Views: 4. Subscribers: Mummy aur Papa. Oscar dream alive. 🎥💀",
+        badge: "📸 STRUGGLING CREATOR",
+        color: "#fd7272",
+        emoji: "🎬📱💀",
+        img: "aaditya.jpg"
+    },
+    {
+        name: "Abhay",
+        title: "💸 10rs Worker",
+        caption: "Salary itni kam hai ki ATM bhi hans ke band ho jaata hai. 😂",
+        badge: "🪙 BROKE CHAMPION",
+        color: "#f39c12",
+        emoji: "💸🪙😅",
+        img: "abhay.jpg"
+    },
+    {
+        name: "Divakar",
+        title: "🗣️ Bahoot Gyaan Deta",
+        caption: "Google bhi thak jaata hai, ye nahi thakta. Chup hone ka option hi nahi. 🤫",
+        badge: "📢 MUTE BUTTON NEEDED",
+        color: "#00b894",
+        emoji: "🗣️📢🤯",
+        img: "divakar.jpg"
+    },
+    {
+        name: "Pawan",
+        title: "🤷 Simple Ladka",
+        caption: "Bio mein likhna chahte the kuch special... blank chhod diya. That's it. 😶",
+        badge: "🌫️ NOTHING TO SEE HERE",
+        color: "#74b9ff",
+        emoji: "🤷😶🌫️",
+        img: "pawan.jpg"
+    }
+];
+
+const roastLevels = [98, 75, 85, 99, 88, 45];
+
+function buildCards() {
+  const grid = document.getElementById('grid');
+  friends.forEach((f, i) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.style.setProperty('--c1', f.color);
+    card.style.setProperty('--glow', f.color + '66');
+    card.innerHTML = `
+      <span class="badge">${f.badge}</span>
+      <div class="photo-wrap">
+        <img src="${f.img}" alt="${f.name}" loading="lazy" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x400/1a1a2e/ffffff?text=Image+Missing';">
+        <div class="emoji-overlay">${f.emoji}</div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">${f.name}</div>
+        <div class="card-title">${f.title}</div>
+        <div class="roast-box">"${f.caption}"</div>
+        <div class="meter-wrap">
+          <span class="meter-label">🔥 ROAST LEVEL</span>
+          <div class="meter-bar"><div class="meter-fill" id="meter-${i}"></div></div>
+          <span class="meter-label" style="color:${f.color}">${roastLevels[i]}%</span>
+        </div>
+      </div>`;
+    card.addEventListener('click', (e) => spawnBoom(e, i));
+    grid.appendChild(card);
+  });
+
+  // Animate meters after a delay
+  setTimeout(() => {
+    friends.forEach((_, i) => {
+      const el = document.getElementById('meter-' + i);
+      if (el) el.style.width = roastLevels[i] + '%';
+    });
+  }, 400);
+}
+
+function spawnBoom(e, i) {
+  const emojis = ['💀','😂','🔥','💸','🤣','👏','💥','😭'];
+  for(let j=0; j<5; j++) {
+    const el = document.createElement('div');
+    el.className = 'boom';
+    el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    el.style.left = (e.clientX + (Math.random()-0.5)*80) + 'px';
+    el.style.top = (e.clientY + (Math.random()-0.5)*80) + 'px';
+    el.style.animationDelay = (j*0.1) + 's';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 900);
+  }
+}
+
+function buildFloaters() {
+  const emojis = ['💀','🔥','😂','💸','🤣','💔','😎','🎬','📢','🤷','🌾','💥'];
+  const container = document.getElementById('floaters');
+  for(let i=0; i<20; i++) {
+    const el = document.createElement('div');
+    el.className = 'floater';
+    el.textContent = emojis[i % emojis.length];
+    el.style.left = Math.random()*100 + 'vw';
+    el.style.animationDuration = (8 + Math.random()*12) + 's';
+    el.style.animationDelay = (-Math.random()*15) + 's';
+    el.style.fontSize = (1.5 + Math.random()*2) + 'rem';
+    container.appendChild(el);
+  }
+}
+
+buildCards();
+buildFloaters();
+</script>
+
+</body>
+</html>
